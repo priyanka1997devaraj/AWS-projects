@@ -1,0 +1,55 @@
+# Sample App deployment
+
+## Copy the deploy.yml to your local and save it with name deploy.yml
+
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: my-appns
+  name: my-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: my-app
+        image: <aws-account-id>.dkr.ecr.us-east-1.amazonaws.com/my-app:latest
+        ports:
+        - containerPort: 3000
+```
+
+## Deploy the app
+
+```
+kubectl apply -f deploy.yaml
+```
+
+
+## Copy the below file as service.yml
+
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: my-app
+  ports:
+    - port: 80
+      targetPort: 3000
+```
+
+## Deploy the service
+
+```
+kubectl apply -f service.yaml
+```
