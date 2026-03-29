@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: my-app
-        image: 823722174827.dkr.ecr.us-east-1.amazonaws.com/my-app:latest
+        image: <aws-account-id>.dkr.ecr.us-east-1.amazonaws.com/my-app:latest
         ports:
         - containerPort: 3000
 ---
